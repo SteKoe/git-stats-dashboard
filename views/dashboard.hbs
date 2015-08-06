@@ -1,0 +1,9 @@
+<div class="view dashboard" ng-controller="DashboardController">
+    <div gridster>
+        <ul>
+            <li gridster-item="item" ng-repeat="item in standardItems" ng-class="item.style">
+                <sample-widget></sample-widget>
+            </li>
+        </ul>
+    </div>
+</div>

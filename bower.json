@@ -1,0 +1,19 @@
+{
+  "name": "git-stats-services",
+  "version": "0.0.0",
+  "homepage": "https://github.com/SteKoe/git-stats-services",
+  "authors": [
+    "Stephan Köninger <github@stekoe.de>"
+  ],
+  "license": "Apache 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-gridster": "~0.13.5"
+  }
+}

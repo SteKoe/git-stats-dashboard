@@ -1,0 +1,26 @@
+.view.dashboard {
+
+  .gridster .gridster-item {
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    color: #222222;
+    background: #ffffff;
+    padding: 10px;
+
+    // Predefined colors
+    &.color-cyan {
+      background-color: #12b0c5;
+    }
+    &.color-purple {
+      background-color: #9c4274;
+    }
+    &.color-orange {
+      background-color: #ff9618;
+    }
+    &.color-salmon {
+      background-color: #ec663c;
+    }
+  }
+
+}

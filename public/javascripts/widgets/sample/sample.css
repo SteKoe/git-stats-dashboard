@@ -1,0 +1,23 @@
+.widget.widget-sample {
+    color: #fff;
+    text-align: center;
+    padding: 25px 12px;
+
+}
+
+.widget.widget-sample .title,
+.widget.widget-sample .more-info {
+    color: rgba(255, 255, 255, 0.7);
+}
+.widget.widget-sample h3 {
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+}
+.widget.widget-sample .more-info {
+    font-size: 15px;
+    position: absolute;
+    bottom: 26px;
+    left: 0;
+    right: 0;
+}

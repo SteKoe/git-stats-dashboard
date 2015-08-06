@@ -1,0 +1,23 @@
+body {
+  font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+body.layout_full {
+  margin: 0;
+  padding: 0;
+  background-color: #222222; }
+
+.view.dashboard .gridster .gridster-item {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  color: #222222;
+  background: #ffffff;
+  padding: 10px; }
+  .view.dashboard .gridster .gridster-item.color-cyan {
+    background-color: #12b0c5; }
+  .view.dashboard .gridster .gridster-item.color-purple {
+    background-color: #9c4274; }
+  .view.dashboard .gridster .gridster-item.color-orange {
+    background-color: #ff9618; }
+  .view.dashboard .gridster .gridster-item.color-salmon {
+    background-color: #ec663c; }
