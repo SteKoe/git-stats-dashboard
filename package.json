@@ -16,6 +16,7 @@
     "morgan": "~1.6.1",
     "nodegit": "^0.4.1",
     "serve-favicon": "~2.3.0",
+    "sloc": "^0.1.9",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
