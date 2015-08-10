@@ -1,59 +1,34 @@
+'use strict';
+
+/**
+ * Module dependencies.
+ */
 var express = require('express');
-var router = express.Router();
-var path = require('path');
-var Git = require('git-exec');
-var fs = require('fs');
 var Promise = require('bluebird');
+var GitUtils = require('../utils/git.js');
 
+var router = express.Router();
 module.exports = router;
-
-router.get('/committers/amount', function (req, res, next) {
+router.get('/committers/amount', function (req, res) {
     var url = req.query.url;
 
     if (!url) {
         res.status(404).send('Not Found');
     } else {
-        processRequest()
+        cloneRepository(url)
             .then(function (authors) {
-                res.send(authors);
+                res.status(200).send(authors);
             });
     }
 
-    /**
-     * Processes the request and returns a promise which resolves containing
-     * the amount of commits per comitter.
-     *
-     * @returns {*}
-     */
-    function processRequest() {
-        var path = url.replace(/([a-zA-Z]*)\:\/\//, "");
-        var targetPath = 'tmp/' + path;
-        var defered = Promise.defer();
-
-        if (fs.existsSync(targetPath)) {
-            gitLog(new Git(targetPath))
-                .then(function (authors) {
-                    defered.resolve(authors);
-                });
-        } else {
-            Git.clone(url, targetPath, function (repo) {
-                gitLog(repo)
-                    .then(function (authors) {
-                        defered.resolve(authors);
-                    });
+    function cloneRepository(url) {
+        return GitUtils.cloneRepository(url)
+            .then(function (repo) {
+                return countCommitsPerComitter(repo);
             });
-        }
-
-        return defered.promise;
     }
 
-    /**
-     * Extracts and counts all authors for the given repository.
-     *
-     * @param repo
-     * @returns {*}
-     */
-    function gitLog(repo) {
+    function countCommitsPerComitter(repo) {
         var defered = Promise.defer();
 
         repo.exec('log', ['--pretty=format:"%an"'], function (err, out) {
