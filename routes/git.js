@@ -8,6 +8,7 @@ var Promise = require('bluebird');
 var CommitsPerComitterService = require('../services/commitsPerCommitter.js');
 var LinesPerFileService = require('../services/linesPerFile.js');
 var HotspotsPerPackageService = require('../services/hotspotsPerPackage.js');
+var FileTypeDistribution = require('../services/fileTypeDistribution.js');
 
 // Router
 var router = express.Router();
@@ -16,20 +17,39 @@ module.exports = router;
 router.get('/committer/commits', function(req, res) {
     CommitsPerComitterService(req, res)
         .then(function (authors) {
-            res.status(200).send(authors);
+            res.send(authors);
+        })
+        .catch(function(err) {
+            res.sendStatus(500);
         });
 });
 
 router.get('/file/lines', function (req, res) {
     LinesPerFileService(req, res)
         .then(function (fileStats) {
-            res.status(200).send(fileStats);
+            res.send(fileStats);
+        })
+        .catch(function(err) {
+            res.sendStatus(500);
         });
 });
 
 router.get('/file/hotspots', function(req, res) {
     HotspotsPerPackageService(req, res)
         .then(function (resp) {
-            res.status(200).send("asd");
+            res.send("asd");
+        })
+        .catch(function(err) {
+            res.sendStatus(500);
+        });
+});
+
+router.get('/file/types', function(req, res) {
+    FileTypeDistribution(req)
+        .then(function (resp) {
+            res.send(resp);
+        })
+        .catch(function(err) {
+            res.sendStatus(err.status);
         });
 });
