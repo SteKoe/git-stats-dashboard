@@ -3,8 +3,8 @@
 // Dependencies
 var LinesPerFileService = require('./linesPerFile.js');
 
-module.exports = function (req, res) {
-    return LinesPerFileService(req, res)
+module.exports = function (req) {
+    return LinesPerFileService(req)
         .then(function (resp) {
             return fillHotspotsInTree(resp);
         });

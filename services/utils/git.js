@@ -12,11 +12,23 @@ module.exports = (function () {
         cloneOrPullRepository: cloneOrPullRepository
     };
 
+    function cloneOrPullRepository(url) {
+        var defered;
+
+        if (!url) {
+            defered = Promise.defer();
+            defered.reject({status: 400});
+            return defered.promise;
+        } else {
+            return _cloneOrPullRepository(url);
+        }
+    }
+
     /**
      * @param url The URL of the repository to be cloned.
      * @returns {*} Git.Repository object
      */
-    function cloneOrPullRepository(url) {
+    function _cloneOrPullRepository(url) {
         var path = url.replace(/([a-zA-Z]*)\:\/\//, "");
         var targetPath = 'tmp/' + path;
 
