@@ -6,17 +6,12 @@ var glob = require('glob');
 var sloc = require('sloc');
 var fs = require('fs');
 
-module.exports = function (req, res) {
+module.exports = function (req) {
     var url = req.query.url;
-
-    if (!url) {
-        res.status(404).send('Not Found');
-    } else {
-        return GitUtils.cloneOrPullRepository(url)
-            .then(function (repo) {
-                return linesPerFile(repo);
-            });
-    }
+    return GitUtils.cloneOrPullRepository(url)
+        .then(function (repo) {
+            return linesPerFile(repo);
+        });
 
     function linesPerFile(repo) {
         var promises = glob.sync(repo.directory + '/**/*.js')

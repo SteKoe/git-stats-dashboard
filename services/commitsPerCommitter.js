@@ -3,21 +3,10 @@
 // Dependencies
 var GitUtils = require('./utils/git.js');
 
-module.exports = function (req, res) {
+module.exports = function (req) {
     var url = req.query.url;
-
-    if (!url) {
-        res.status(404).send('Not Found');
-    } else {
-        return cloneRepository(url);
-    }
-
-    function cloneRepository(url) {
-        return GitUtils.cloneOrPullRepository(url)
-            .then(function (repo) {
-                return countCommitsPerComitter(repo);
-            });
-    }
+    return GitUtils.cloneOrPullRepository(url)
+        .then(countCommitsPerComitter);
 
     function countCommitsPerComitter(repo, options) {
         var options = options || {};
