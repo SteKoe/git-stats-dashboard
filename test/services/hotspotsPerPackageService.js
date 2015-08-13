@@ -3,6 +3,14 @@
 function fillHotspotsInTree(data) {
     var tree = {};
 
+    for (var x=0; x < data.length; x++) {
+        var steps = data[x].name.split('/').splice(1);
+        if(steps.length > 1) {
+            fillTree(data[x].stats.total, steps)
+        }
+    }
+    return tree;
+
     function fillTree(name, steps) {
         var current = null,
             existing = null,
@@ -31,14 +39,6 @@ function fillHotspotsInTree(data) {
         }
         current.push({name: steps[steps.length-1], count: name})
     }
-
-    for (var x=0; x < data.length; x++) {
-        var steps = data[x].name.split('/').splice(1);
-        if(steps.length > 1) {
-            fillTree(data[x].stats.total, steps)
-        }
-    }
-    return tree;
 };
 
 describe('hotspots per package test', function () {
