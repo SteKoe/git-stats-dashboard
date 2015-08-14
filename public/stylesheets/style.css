@@ -21,3 +21,33 @@ body.layout_full {
     background-color: #ff9618; }
   .view.dashboard .gridster .gridster-item.color-salmon {
     background-color: #ec663c; }
+
+.view.dashboard d3pie .arc:nth-child(1) path {
+  fill: white !important; }
+
+.view.dashboard d3pie .arc:nth-child(2) path {
+  fill: rgba(255, 255, 255, 0.75) !important; }
+
+.view.dashboard d3pie .arc:nth-child(3) path {
+  fill: rgba(255, 255, 255, 0.666667) !important; }
+
+.view.dashboard d3pie .arc:nth-child(4) path {
+  fill: rgba(255, 255, 255, 0.625) !important; }
+
+.view.dashboard d3pie .arc:nth-child(5) path {
+  fill: rgba(255, 255, 255, 0.6) !important; }
+
+.view.dashboard d3pie .arc:nth-child(6) path {
+  fill: rgba(255, 255, 255, 0.583333) !important; }
+
+.view.dashboard d3pie .arc:nth-child(7) path {
+  fill: rgba(255, 255, 255, 0.571429) !important; }
+
+.view.dashboard d3pie .arc:nth-child(8) path {
+  fill: rgba(255, 255, 255, 0.5625) !important; }
+
+.view.dashboard d3pie .arc:nth-child(9) path {
+  fill: rgba(255, 255, 255, 0.555556) !important; }
+
+.view.dashboard d3pie .arc:nth-child(10) path {
+  fill: rgba(255, 255, 255, 0.55) !important; }

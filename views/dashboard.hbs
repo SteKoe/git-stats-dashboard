@@ -1,8 +1,30 @@
 <div class="view dashboard" ng-controller="DashboardController">
+    <div>
+        <input type="url" ng-model=""
+    </div>
     <div gridster>
         <ul>
-            <li gridster-item="item" ng-repeat="item in standardItems" ng-class="item.style">
-                <sample-widget></sample-widget>
+            <li class="widget widgetLoc" gridster-item="gridItems.loc" ng-class="gridItems.loc.style">
+                <h1>LoC per File (Top 20)</h1>
+                <ol>
+                    <li ng-repeat="line in linesPerFile">
+                        <span ng-bind="line.name"></span><br>
+                        <small>
+                            Total: <span ng-bind="line.stats.total"></span>,
+                            Comments: <span ng-bind="line.stats.comment"></span>
+                        </small>
+                    </li>
+                </ol>
+            </li>
+            <li class="widget committers" gridster-item="gridItems.committers" ng-class="gridItems.committers.style">
+                <h1>Committer Distribution</h1>
+                <d3pie data="committers"></d3pie>
+            </li>
+            <li class="widget langStat" gridster-item="gridItems.langStat" ng-class="gridItems.langStat.style">
+                <h1>Language Distribution</h1>
+                <d3pie data="langStat"></d3pie>
+            </li>
+            <li class="widget commitsPerDay" gridster-item="gridItems.commitsPerDay" ng-class="gridItems.commitsPerDay.style">
             </li>
         </ul>
     </div>
