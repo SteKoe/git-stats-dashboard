@@ -37,7 +37,7 @@ router.get('/file/lines', function (req, res) {
 router.get('/file/hotspots', function(req, res) {
     HotspotsPerPackageService(req, res)
         .then(function (resp) {
-            res.send("asd");
+            res.send(resp);
         })
         .catch(function(err) {
             res.sendStatus(500);

@@ -1,7 +1,6 @@
 <div class="view dashboard" ng-controller="DashboardController">
-    <div>
-        <input type="url" ng-model=""
-    </div>
+    <input type="url" ng-model="url" style="width: 100%; padding: 3px 5px;">
+    <input type="button" ng-click="runStats()">
     <div gridster>
         <ul>
             <li class="widget widgetLoc" gridster-item="gridItems.loc" ng-class="gridItems.loc.style">
@@ -25,6 +24,7 @@
                 <d3pie data="langStat"></d3pie>
             </li>
             <li class="widget commitsPerDay" gridster-item="gridItems.commitsPerDay" ng-class="gridItems.commitsPerDay.style">
+                <d3circle data="hotspotsPerFile"></d3circle>
             </li>
         </ul>
     </div>

@@ -1,6 +1,6 @@
 angular.module('de.devjs.dashboard.git.dashboard')
     .controller('DashboardController', ['$scope', '$http', function ($scope, $http) {
-        var url = "https://github.com/SteKoe/git-stats-dashboard";
+        $scope.url = "https://github.com/SteKoe/git-stats-dashboard";
         var headers = {};
 
         $scope.gridItems = {
@@ -10,35 +10,44 @@ angular.module('de.devjs.dashboard.git.dashboard')
             commitsPerDay: {sizeX: 4, sizeY: 1, row: 3, col: 2, style: 'color-orange'}
         };
 
-        $http.get('/git/committer/commits?url=' + url, headers)
-            .then(function (resp) {
-                $scope.committers = [];
-                resp.data.forEach(function (resp) {
-                    $scope.committers.push(resp);
-                });
-            });
-
-        $http.get('/git/file/types?url=' + url, headers)
-            .then(function (resp) {
-                $scope.langStat = [];
-                resp.data.forEach(function (resp) {
-                    $scope.langStat.push({
-                        name: Object.keys(resp)[0],
-                        count: Math.round(resp[Object.keys(resp)[0]] * 1000) / 10
+        $scope.runStats = function() {
+            $http.get('/git/committer/commits?url=' + $scope.url, headers)
+                .then(function (resp) {
+                    $scope.committers = [];
+                    resp.data.forEach(function (resp) {
+                        $scope.committers.push(resp);
                     });
                 });
 
-                function getReadableTypeName(type) {
+            $http.get('/git/file/types?url=' + $scope.url, headers)
+                .then(function (resp) {
+                    $scope.langStat = [];
+                    resp.data.forEach(function (resp) {
+                        $scope.langStat.push({
+                            name: Object.keys(resp)[0],
+                            count: Math.round(resp[Object.keys(resp)[0]] * 1000) / 10
+                        });
+                    });
 
-                }
-            });
+                    function getReadableTypeName(type) {
 
-        $http.get('/git/file/lines?url=' + url, headers)
-            .then(function (resp) {
-                resp.data = resp.data.filter(function (item) {
-                    // Filter out all vendors
-                    return item.name.indexOf('vendor') === -1;
-                }).splice(0, 20);
-                $scope.linesPerFile = resp.data;
-            });
+                    }
+                });
+
+            $http.get('/git/file/lines?url=' + $scope.url, headers)
+                .then(function (resp) {
+                    resp.data = resp.data.filter(function (item) {
+                        // Filter out all vendors
+                        return item.name.indexOf('vendor') === -1;
+                    }).splice(0, 20);
+                    $scope.linesPerFile = resp.data;
+                });
+
+            $http.get('/git/file/hotspots?url=' + $scope.url, headers)
+                .then(function (resp) {
+                    console.log(resp);
+                    $scope.hotspotsPerFile = resp.data;
+                });
+        }
+
     }]);

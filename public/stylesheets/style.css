@@ -6,21 +6,24 @@ body.layout_full {
   padding: 0;
   background-color: #222222; }
 
-.view.dashboard .gridster .gridster-item {
+.view.dashboard .widget {
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  color: #222222;
+  color: #FFFFFF;
   background: #ffffff;
   padding: 10px; }
-  .view.dashboard .gridster .gridster-item.color-cyan {
+  .view.dashboard .widget.color-cyan {
     background-color: #12b0c5; }
-  .view.dashboard .gridster .gridster-item.color-purple {
+  .view.dashboard .widget.color-purple {
     background-color: #9c4274; }
-  .view.dashboard .gridster .gridster-item.color-orange {
+  .view.dashboard .widget.color-orange {
     background-color: #ff9618; }
-  .view.dashboard .gridster .gridster-item.color-salmon {
+  .view.dashboard .widget.color-salmon {
     background-color: #ec663c; }
+
+.view.dashboard h1 {
+  text-align: center; }
 
 .view.dashboard d3pie .arc:nth-child(1) path {
   fill: white !important; }
@@ -51,3 +54,13 @@ body.layout_full {
 
 .view.dashboard d3pie .arc:nth-child(10) path {
   fill: rgba(255, 255, 255, 0.55) !important; }
+
+circle {
+  fill: #1f77b4;
+  fill-opacity: .25;
+  stroke: #1f77b4;
+  stroke-width: 1px; }
+
+.leaf circle {
+  fill: #ff7f0e;
+  fill-opacity: 1; }

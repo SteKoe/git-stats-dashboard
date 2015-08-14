@@ -1,10 +1,10 @@
 .view.dashboard {
 
-  .gridster .gridster-item {
+  .widget {
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    color: #222222;
+    color: #FFFFFF;
     background: #ffffff;
     padding: 10px;
 
@@ -21,6 +21,10 @@
     &.color-salmon {
       background-color: #ec663c;
     }
+  }
+
+  h1 {
+    text-align: center;
   }
 
   d3pie .arc {
