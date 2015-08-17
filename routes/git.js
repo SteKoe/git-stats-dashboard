@@ -15,7 +15,7 @@ var router = express.Router();
 module.exports = router;
 
 router.get('/committer/commits', function(req, res) {
-    CommitsPerComitterService(req, res)
+    CommitsPerComitterService(req.query.url, res)
         .then(function (authors) {
             res.send(authors);
         })
@@ -25,7 +25,7 @@ router.get('/committer/commits', function(req, res) {
 });
 
 router.get('/file/lines', function (req, res) {
-    LinesPerFileService(req, res)
+    LinesPerFileService(req.query.url, res)
         .then(function (fileStats) {
             res.send(fileStats);
         })
@@ -35,7 +35,7 @@ router.get('/file/lines', function (req, res) {
 });
 
 router.get('/file/hotspots', function(req, res) {
-    HotspotsPerPackageService(req, res)
+    HotspotsPerPackageService(req.query.url, res)
         .then(function (resp) {
             res.send(resp);
         })
@@ -45,11 +45,8 @@ router.get('/file/hotspots', function(req, res) {
 });
 
 router.get('/file/types', function(req, res) {
-    FileTypeDistribution(req)
+    FileTypeDistribution(req.query.url)
         .then(function (resp) {
             res.send(resp);
-        })
-        .catch(function(err) {
-            res.sendStatus(err.status);
         });
 });

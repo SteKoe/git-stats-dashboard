@@ -6,6 +6,53 @@ body.layout_full {
   padding: 0;
   background-color: #222222; }
 
+d3pie .arc:nth-child(1) path {
+  fill: white !important; }
+
+d3pie .arc:nth-child(2) path {
+  fill: rgba(255, 255, 255, 0.75) !important; }
+
+d3pie .arc:nth-child(3) path {
+  fill: rgba(255, 255, 255, 0.666667) !important; }
+
+d3pie .arc:nth-child(4) path {
+  fill: rgba(255, 255, 255, 0.625) !important; }
+
+d3pie .arc:nth-child(5) path {
+  fill: rgba(255, 255, 255, 0.6) !important; }
+
+d3pie .arc:nth-child(6) path {
+  fill: rgba(255, 255, 255, 0.583333) !important; }
+
+d3pie .arc:nth-child(7) path {
+  fill: rgba(255, 255, 255, 0.571429) !important; }
+
+d3pie .arc:nth-child(8) path {
+  fill: rgba(255, 255, 255, 0.5625) !important; }
+
+d3pie .arc:nth-child(9) path {
+  fill: rgba(255, 255, 255, 0.555556) !important; }
+
+d3pie .arc:nth-child(10) path {
+  fill: rgba(255, 255, 255, 0.55) !important; }
+
+d3codeflower code.node {
+  cursor: pointer;
+  stroke: #000;
+  stroke-width: .5px; }
+
+d3codeflower code.node.directory {
+  stroke: #9ecae1;
+  stroke-width: 2px; }
+
+d3codeflower code.node.collapsed {
+  stroke: #555; }
+
+d3codeflower line.link {
+  fill: none;
+  stroke: #9ecae1;
+  stroke-width: 1.5px; }
+
 .view.dashboard .widget {
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -24,43 +71,3 @@ body.layout_full {
 
 .view.dashboard h1 {
   text-align: center; }
-
-.view.dashboard d3pie .arc:nth-child(1) path {
-  fill: white !important; }
-
-.view.dashboard d3pie .arc:nth-child(2) path {
-  fill: rgba(255, 255, 255, 0.75) !important; }
-
-.view.dashboard d3pie .arc:nth-child(3) path {
-  fill: rgba(255, 255, 255, 0.666667) !important; }
-
-.view.dashboard d3pie .arc:nth-child(4) path {
-  fill: rgba(255, 255, 255, 0.625) !important; }
-
-.view.dashboard d3pie .arc:nth-child(5) path {
-  fill: rgba(255, 255, 255, 0.6) !important; }
-
-.view.dashboard d3pie .arc:nth-child(6) path {
-  fill: rgba(255, 255, 255, 0.583333) !important; }
-
-.view.dashboard d3pie .arc:nth-child(7) path {
-  fill: rgba(255, 255, 255, 0.571429) !important; }
-
-.view.dashboard d3pie .arc:nth-child(8) path {
-  fill: rgba(255, 255, 255, 0.5625) !important; }
-
-.view.dashboard d3pie .arc:nth-child(9) path {
-  fill: rgba(255, 255, 255, 0.555556) !important; }
-
-.view.dashboard d3pie .arc:nth-child(10) path {
-  fill: rgba(255, 255, 255, 0.55) !important; }
-
-circle {
-  fill: #1f77b4;
-  fill-opacity: .25;
-  stroke: #1f77b4;
-  stroke-width: 1px; }
-
-.leaf circle {
-  fill: #ff7f0e;
-  fill-opacity: 1; }

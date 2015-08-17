@@ -1,0 +1,20 @@
+d3codeflower {
+  code.node {
+    cursor: pointer;
+    stroke: #000;
+    stroke-width: .5px;
+  }
+  code.node.directory {
+    stroke: #9ecae1;
+    stroke-width: 2px;
+  }
+  code.node.collapsed {
+    stroke: #555;
+  }
+
+  line.link {
+    fill: none;
+    stroke: #9ecae1;
+    stroke-width: 1.5px;
+  }
+}

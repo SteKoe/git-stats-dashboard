@@ -4,8 +4,7 @@
 var GitUtils = require('./utils/git.js');
 var glob = require('glob');
 
-module.exports = function (req, res) {
-    var url = req.query.url;
+module.exports = function (url) {
     return GitUtils.cloneOrPullRepository(url)
         .then(countFileTypes);
 

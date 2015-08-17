@@ -6,6 +6,7 @@
 var fs = require('fs');
 var Promise = require('bluebird');
 var Git = require('git-exec');
+var passwordHash = require('password-hash');
 
 module.exports = (function () {
     return {
@@ -31,21 +32,31 @@ module.exports = (function () {
     function _cloneOrPullRepository(url) {
         var path = url.replace(/([a-zA-Z]*)\:\/\//, "");
         var targetPath = 'tmp/' + path;
-
         var defered = Promise.defer();
-        if (fs.existsSync(targetPath)) {
-            console.log("Repository already cloned...");
-            var repo = new Git(targetPath);
-            repo.exec('pull', null, function () {
-                console.log("... pulling changes!");
-                defered.resolve(repo);
-            });
+
+        var procFile = passwordHash.generate(targetPath);
+
+        if(fs.existsSync('tmp/' + procFile)) {
+            setTimeout(function() {
+                console.log("Someone's working on " + url + "...");
+                if(!fs.existsSync('tmp/' + procFile)) {
+                    console.log(" ... finished!");
+                    defered.resolve(new Git(targetPath));
+                }
+            }, 2500);
         } else {
+            fs.writeFile('tmp/' + procFile, '', function (err) {
+                if (err) return console.log(err);
+            });
+
             console.log("Need to clone Repository...");
             Git.clone(url, targetPath, function (repo) {
-                defered.resolve(repo);
+                fs.unlink('tmp/' + procFile, function() {
+                    defered.resolve(repo);
+                });
             });
         }
+
         return defered.promise;
     }
 })();

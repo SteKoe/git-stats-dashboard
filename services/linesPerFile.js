@@ -6,8 +6,7 @@ var glob = require('glob');
 var sloc = require('sloc');
 var fs = require('fs');
 
-module.exports = function (req) {
-    var url = req.query.url;
+module.exports = function (url) {
     return GitUtils.cloneOrPullRepository(url)
         .then(function (repo) {
             return linesPerFile(repo);

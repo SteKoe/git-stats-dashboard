@@ -10,6 +10,15 @@ angular.module('de.devjs.dashboard.git.dashboard')
             commitsPerDay: {sizeX: 4, sizeY: 1, row: 3, col: 2, style: 'color-orange'}
         };
 
+        $scope.gridsterOpts = {
+            resizable: {
+                enabled: false
+            },
+            draggable: {
+                enabled: false
+            }
+        };
+
         $scope.runStats = function() {
             $http.get('/git/committer/commits?url=' + $scope.url, headers)
                 .then(function (resp) {
@@ -23,14 +32,23 @@ angular.module('de.devjs.dashboard.git.dashboard')
                 .then(function (resp) {
                     $scope.langStat = [];
                     resp.data.forEach(function (resp) {
+                        var key = Object.keys(resp)[0];
+
+
+
                         $scope.langStat.push({
-                            name: Object.keys(resp)[0],
-                            count: Math.round(resp[Object.keys(resp)[0]] * 1000) / 10
+                            name: getReadableTypeName(key),
+                            count: Math.round(resp[key] * 1000) / 10
                         });
                     });
 
                     function getReadableTypeName(type) {
+                        var typeName = {
+                            'js': 'JavaScript',
+                            'hbs': 'Handlebars.js'
+                        };
 
+                        return typeName[type] || type.toUpperCase();
                     }
                 });
 
@@ -49,5 +67,7 @@ angular.module('de.devjs.dashboard.git.dashboard')
                     $scope.hotspotsPerFile = resp.data;
                 });
         }
+
+        $scope.runStats();
 
     }]);

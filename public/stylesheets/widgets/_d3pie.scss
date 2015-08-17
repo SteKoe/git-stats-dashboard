@@ -1,0 +1,12 @@
+d3pie {
+  .arc {
+    $max: 10;
+    @for $i from 1 through $max {
+      &:nth-child(#{$i}) {
+        path {
+          fill: rgba(255,255,255, 0.5 + 0.5 * 1/$i ) !important;
+        }
+      }
+    }
+  }
+}
