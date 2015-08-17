@@ -55,7 +55,6 @@ angular.module('de.devjs.dashboard.git.dashboard')
             $http.get('/git/file/lines?url=' + $scope.url, headers)
                 .then(function (resp) {
                     resp.data = resp.data.filter(function (item) {
-                        // Filter out all vendors
                         return item.name.indexOf('vendor') === -1;
                     }).splice(0, 20);
                     $scope.linesPerFile = resp.data;
@@ -63,7 +62,6 @@ angular.module('de.devjs.dashboard.git.dashboard')
 
             $http.get('/git/file/hotspots?url=' + $scope.url, headers)
                 .then(function (resp) {
-                    console.log(resp);
                     $scope.hotspotsPerFile = resp.data;
                 });
         }

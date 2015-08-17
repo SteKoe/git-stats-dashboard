@@ -6,7 +6,7 @@
 var fs = require('fs');
 var Promise = require('bluebird');
 var Git = require('git-exec');
-var passwordHash = require('password-hash');
+var sha1 = require('sha1');
 
 module.exports = (function () {
     return {
@@ -31,30 +31,48 @@ module.exports = (function () {
      */
     function _cloneOrPullRepository(url) {
         var path = url.replace(/([a-zA-Z]*)\:\/\//, "");
-        var targetPath = 'tmp/' + path;
+        var targetPath = './tmp/' + path;
+        var procFile = sha1(targetPath);
+        console.log(path, procFile);
+        procFile = './tmp/' + procFile;
+
         var defered = Promise.defer();
 
-        var procFile = passwordHash.generate(targetPath);
+        if(!fs.existsSync(procFile)) {
+            fs.writeFileSync(procFile, '1337');
+            fs.chmodSync(procFile, '0777');
 
-        if(fs.existsSync('tmp/' + procFile)) {
-            setTimeout(function() {
-                console.log("Someone's working on " + url + "...");
-                if(!fs.existsSync('tmp/' + procFile)) {
-                    console.log(" ... finished!");
-                    defered.resolve(new Git(targetPath));
-                }
-            }, 2500);
-        } else {
-            fs.writeFile('tmp/' + procFile, '', function (err) {
-                if (err) return console.log(err);
-            });
+            if(!fs.existsSync(targetPath)) {
+                Git.clone(url, targetPath, function (repo) {
+                    repo = new Git(targetPath);
 
-            console.log("Need to clone Repository...");
-            Git.clone(url, targetPath, function (repo) {
-                fs.unlink('tmp/' + procFile, function() {
-                    defered.resolve(repo);
+                    fs.unlink(procFile, function(err) {
+                        if(err) console.error(err);
+
+                        console.log("done...");
+                        defered.resolve(repo);
+                    });
+
                 });
-            });
+            } else {
+                var repo = new Git(targetPath);
+                defered.resolve(repo);
+            }
+        }
+
+        if (fs.existsSync(procFile)) {
+            asd(procFile);
+        }
+
+        function asd(procFile) {
+            console.log("Someone's working on " + url + "...");
+            if (!fs.existsSync(procFile)) {
+                console.log(" ... finished!");
+                var repo = new Git(targetPath);
+                defered.resolve(repo);
+            } else {
+                setTimeout(asd, 1500);
+            }
         }
 
         return defered.promise;

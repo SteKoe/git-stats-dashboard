@@ -19,6 +19,7 @@
     "nodegit": "^0.4.1",
     "password-hash": "^1.2.2",
     "serve-favicon": "~2.3.0",
+    "sha1": "^1.1.1",
     "sloc": "^0.1.9",
     "uuid": "^2.0.1"
   },
