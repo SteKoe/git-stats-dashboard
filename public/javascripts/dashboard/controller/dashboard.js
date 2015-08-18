@@ -64,6 +64,11 @@ angular.module('de.devjs.dashboard.git.dashboard')
                 .then(function (resp) {
                     $scope.hotspotsPerFile = resp.data;
                 });
+
+            $http.get('/git/file/dependencies?url=' + $scope.url, headers)
+                .then(function (resp) {
+                    $scope.dependencies = resp.data;
+                });
         }
 
         $scope.runStats();
