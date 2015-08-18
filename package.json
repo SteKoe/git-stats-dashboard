@@ -15,6 +15,8 @@
     "git-exec": "^0.2.1",
     "glob": "^5.0.14",
     "hbs": "~3.1.0",
+    "madge": "^0.5.0",
+    "mkdirp": "^0.5.1",
     "morgan": "~1.6.1",
     "nodegit": "^0.4.1",
     "password-hash": "^1.2.2",
