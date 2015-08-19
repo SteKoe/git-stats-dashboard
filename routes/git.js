@@ -5,11 +5,12 @@ var express = require('express');
 var Promise = require('bluebird');
 
 // Services
-var CommitsPerComitterService = require('../services/commitsPerCommitter.js');
-var LinesPerFileService = require('../services/linesPerFile.js');
-var HotspotsPerPackageService = require('../services/hotspotsPerPackage.js');
-var FileTypeDistribution = require('../services/fileTypeDistribution.js');
-var DependencyAnalysisService = require('../services/dependencyAnalysisService.js');
+var CommitsPerComitterService = require('../services/commitsPerCommitter');
+var LinesPerFileService = require('../services/linesPerFile');
+var HotspotsPerPackageService = require('../services/hotspotsPerPackage');
+var FileTypeDistribution = require('../services/fileTypeDistribution');
+var AvailableRepos = require('../services/availableLocalRepositories');
+var DependencyAnalysisService = require('../services/dependencyAnalysisService');
 
 // Router
 var router = express.Router();
@@ -61,4 +62,8 @@ router.get('/file/dependencies', function (req, res) {
         .catch(function (err) {
             res.sendStatus(500);
         });
+});
+
+router.get('/repos', function(req, res) {
+    res.send(AvailableRepos());
 });

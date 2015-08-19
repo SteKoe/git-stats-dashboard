@@ -1,5 +1,6 @@
 angular.module('de.devjs.dashboard.git', [
     'gridster',
+    'base64',
 
     'de.devjs.dashboard.git.dashboard',
 

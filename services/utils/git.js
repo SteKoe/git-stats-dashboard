@@ -34,7 +34,6 @@ module.exports = (function () {
         var path = url.replace(/([a-zA-Z]*)\:\/\//, "");
         var targetPath = './tmp/' + path;
         var procFile = sha1(targetPath);
-        console.log(path, procFile);
         procFile = './tmp/' + procFile;
 
         mkdirp("./tmp/", function (err) {
@@ -59,26 +58,13 @@ module.exports = (function () {
                     });
 
                 });
-            } else {
-                var repo = new Git(targetPath);
-                defered.resolve(repo);
+
             }
+        } else {
+            var repo = new Git(targetPath);
+            defered.resolve(repo);
         }
 
-        if (fs.existsSync(procFile)) {
-            asd(procFile);
-        }
-
-        function asd(procFile) {
-            console.log("Someone's working on " + url + "...");
-            if (!fs.existsSync(procFile)) {
-                console.log(" ... finished!");
-                var repo = new Git(targetPath);
-                defered.resolve(repo);
-            } else {
-                setTimeout(asd, 1500);
-            }
-        }
 
         return defered.promise;
     }

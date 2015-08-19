@@ -16,6 +16,8 @@
   "dependencies": {
     "angular-gridster": "~0.13.5",
     "angular-d3charts": "https://github.com/sprengerjo/angular-d3charts.git",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.4.0",
+    "angular-base64": "~2.0.5"
   }
 }
