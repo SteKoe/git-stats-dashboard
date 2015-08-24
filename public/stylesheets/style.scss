@@ -2,6 +2,7 @@
 @import "views/layout_full";
 
 @import "widgets/d3pie";
-@import "widgets/d3codeflower";
+@import "../vendors/angular-d3charts/src/scss/d3codeflower";
+@import "../vendors/angular-d3charts/src/scss/d3dependency";
 
 @import "views/dashboard";
