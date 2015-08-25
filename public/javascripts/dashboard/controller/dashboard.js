@@ -8,7 +8,7 @@ angular.module('de.devjs.dashboard.git.dashboard')
             committers: {sizeX: 4, sizeY: 3, row: 0, col: 4, style: 'color-cyan'},
             langStat: {sizeX: 4, sizeY: 3, row: 0, col: 8, style: 'color-orange'},
             codeflower: {sizeX: 4, sizeY: 4, row: 3, col: 4, style: 'color-orange'},
-            dependencyAnalyser: {sizeX: 4, sizeY: 4, row: 3, col: 8, style: 'color-orange'}
+            dependency: {sizeX: 4, sizeY: 4, row: 3, col: 8, style: 'color-orange'}
         };
 
         $scope.gridsterOpts = {
@@ -99,10 +99,9 @@ angular.module('de.devjs.dashboard.git.dashboard')
 
             $http.get('/git/file/dependencies?url=' + $scope.url, headers)
                 .then(function (resp) {
-                    $scope.dependencies = resp.data;
+                    $scope.dependency = resp.data;
                 });
         }
-
         $scope.runStats();
 
     }]);

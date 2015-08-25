@@ -11,6 +11,7 @@ function fillHotspotsInTree(data) {
     }
     return tree;
 
+    //TODO: redundant code, inject logik in Test/hotspotsPerPackageService.js
     function fillTree(name, steps) {
         var current = null,
             existing = null,

@@ -7,5 +7,6 @@ angular.module('de.devjs.dashboard.git', [
     // Widgets
     'de.devjs.angular.d3circle',
     'de.devjs.angular.d3pie',
-    'de.devjs.angular.d3codeflower'
+    'de.devjs.angular.d3codeflower',
+    'de.devjs.angular.d3dependency'
 ]);
