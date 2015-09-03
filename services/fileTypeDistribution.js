@@ -6,7 +6,10 @@ var glob = require('glob');
 
 module.exports = function (url) {
     return GitUtils.cloneOrPullRepository(url)
-        .then(countFileTypes);
+        .then(countFileTypes)
+        .catch(function(err) {
+            throw new Error(err);
+        });
 
     function countFileTypes(repo) {
         var counter = {};

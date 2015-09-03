@@ -7,6 +7,9 @@ module.exports = function (url) {
     return LinesPerFileService(url)
         .then(function (resp) {
             return fillHotspotsInTree(resp);
+        })
+        .catch(function(err) {
+            throw new Error(err);
         });
 
     //TODO: redundant code, inject logik in Test/hotspotsPerPackageService.js

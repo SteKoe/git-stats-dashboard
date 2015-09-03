@@ -10,6 +10,9 @@ module.exports = function (url) {
     return GitUtils.cloneOrPullRepository(url)
         .then(function (repo) {
             return linesPerFile(repo);
+        })
+        .catch(function (err) {
+            throw new Error(err);
         });
 
     function linesPerFile(repo) {

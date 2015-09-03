@@ -9,11 +9,18 @@ module.exports = function (url) {
     return GitUtils.cloneOrPullRepository(url)
         .then(function (repo) {
             return obtainDependencies(repo)
+        })
+        .catch(function (err) {
+            throw new Error(err);
         });
 
     function obtainDependencies(repo) {
+        var defered = Promise.defer();
+
         var dependencyObject = madge(repo.directory);
-        return extractChortData(dependencyObject.tree);
+        defered.resolve(extractChortData(dependencyObject.tree));
+
+        return defered.promise;
     }
 
 //FIXME: dublicate code
@@ -40,20 +47,22 @@ module.exports = function (url) {
         }
 
         function createChortMatrix() {
-            var matrix = [];
-            extractItems().forEach(function () {
+            var matrix = [], items = extractItems();
+
+            items.forEach(function () {
                 var d = [], i = 0;
-                while (i < extractItems().length) {
+                while (i < items.length) {
                     d[i++] = 0;
                 }
                 matrix.push(d);
             });
-            extractItems().forEach(function (key, i) {
+            items.forEach(function (key, i) {
                 if (data[key]) {
                     data[key].forEach(function (value, j) {
-                        if (extractItems().indexOf(value, j + 1) < 0) {
+                        if (items.indexOf(value, j + 1) < 0) {
                         } else {
-                            matrix[i][extractItems().indexOf(value)] = matrix[i][extractItems().indexOf(value)] += 1;
+                            matrix[i][items.indexOf(value)] = matrix[i][items.indexOf(value)] += 1;
+                            8
                         }
                     });
                 }

@@ -5,7 +5,10 @@ var GitUtils = require('./utils/git.js');
 
 module.exports = function (url) {
     return GitUtils.cloneOrPullRepository(url)
-        .then(countCommitsPerComitter);
+        .then(countCommitsPerComitter)
+        .catch(function(err) {
+            throw new Error(err);
+        });
 
     function countCommitsPerComitter(repo, options) {
         var options = options || {};

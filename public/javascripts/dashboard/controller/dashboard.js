@@ -29,13 +29,14 @@ angular.module('de.devjs.dashboard.git.dashboard')
         };
         $scope.retrieveExistingRepos();
 
-
         $scope.runStats = function () {
-
             if ($scope.username && $scope.password) {
                 headers.common = {};
                 headers.common['Authorization'] = 'Basic ' + $base64.encode($scope.username + ':' + $scope.password);
             }
+
+            $scope.loading = true;
+            console.log("anlyse starting...", $scope.url, headers);
 
             $http.get('/git/committer/commits?url=' + $scope.url, headers)
                 .then(function (resp) {
@@ -43,6 +44,7 @@ angular.module('de.devjs.dashboard.git.dashboard')
                     resp.data.forEach(function (resp) {
                         $scope.committers.push(resp);
                     });
+                    console.log('analysed committers: ', $scope.committers);
                 })
                 .then(function () {
                     return $http.get('/git/file/types?url=' + $scope.url, headers)
@@ -50,8 +52,6 @@ angular.module('de.devjs.dashboard.git.dashboard')
                             $scope.langStat = [];
                             resp.data.forEach(function (resp) {
                                 var key = Object.keys(resp)[0];
-
-
                                 $scope.langStat.push({
                                     name: getReadableTypeName(key),
                                     count: Math.round(resp[key] * 1000) / 10
@@ -66,6 +66,8 @@ angular.module('de.devjs.dashboard.git.dashboard')
 
                                 return typeName[type] || type.toUpperCase();
                             }
+
+                            console.log('analysed types: ', $scope.langStat);
                         });
                 })
                 .then(function () {
@@ -75,33 +77,33 @@ angular.module('de.devjs.dashboard.git.dashboard')
                                 return item.name.indexOf('vendor') === -1;
                             }).splice(0, 20);
                             $scope.linesPerFile = resp.data;
+                            console.log('analysed lines: ', $scope.linesPerFile);
                         });
                 })
                 .then(function () {
                     return $http.get('/git/file/hotspots?url=' + $scope.url, headers)
                         .then(function (resp) {
                             $scope.hotspotsPerFile = resp.data;
+                            console.log('analysed hotspots: ', $scope.hotspotsPerFile);
                         });
+                })
+                .then(function () {
+                    return $http.get('/git/file/dependencies?url=' + $scope.url, headers)
+                        .then(function (resp) {
+                            $scope.dependency = resp.data;
+                            console.log('analysed dependencies: ', $scope.dependency);
+                        });
+                })
+                .catch(function (err) {
+                    console.log(err);
+                })
+                .finally(function () {
+                    console.log("analyse is finished...");
+                    $scope.loading = false;
                 });
+        };
 
-            $http.get('/git/file/lines?url=' + $scope.url, headers)
-                .then(function (resp) {
-                    resp.data = resp.data.filter(function (item) {
-                        return item.name.indexOf('vendor') === -1;
-                    }).splice(0, 20);
-                    $scope.linesPerFile = resp.data;
-                });
-
-            $http.get('/git/file/hotspots?url=' + $scope.url, headers)
-                .then(function (resp) {
-                    $scope.hotspotsPerFile = resp.data;
-                });
-
-            $http.get('/git/file/dependencies?url=' + $scope.url, headers)
-                .then(function (resp) {
-                    $scope.dependency = resp.data;
-                });
-        }
         $scope.runStats();
 
-    }]);
+    }
+    ]);
