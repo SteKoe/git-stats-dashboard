@@ -11,10 +11,21 @@ var HotspotsPerPackageService = require('../services/hotspotsPerPackage');
 var FileTypeDistribution = require('../services/fileTypeDistribution');
 var AvailableRepos = require('../services/availableLocalRepositories');
 var DependencyAnalysisService = require('../services/dependencyAnalysisService');
+var GitUtils = require('../services/utils/git.js');
 
 // Router
 var router = express.Router();
 module.exports = router;
+
+router.get('/repositories/', function (req, res) {
+       GitUtils.cloneOrPullRepository(req.query.url)
+        .then(function (repo) {
+            res.send(repo);
+        })
+        .catch(function (err) {
+            res.sendStatus(err);
+        });
+});
 
 router.get('/committer/commits', function (req, res) {
     CommitsPerComitterService(req.query.url, res)

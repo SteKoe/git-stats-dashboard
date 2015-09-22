@@ -15,7 +15,7 @@ module.exports = function (url) {
         var counter = {};
 
         // Count FileExtensions
-        glob.sync(repo.directory + '/**/*.*')
+        glob.sync(repo + '/**/*.*')
             .map(function (file) {
                 return file.split('.').pop();
             })

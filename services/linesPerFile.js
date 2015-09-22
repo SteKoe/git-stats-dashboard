@@ -16,7 +16,7 @@ module.exports = function (url) {
         });
 
     function linesPerFile(repo) {
-        var promises = glob.sync(repo.directory + '/**/*.*')
+        var promises = glob.sync(repo + '/**/*.*')
             .map(function (file) {
                 var defered = Promise.defer();
                 fs.readFile(file, "utf8", function (err, code) {
@@ -24,7 +24,7 @@ module.exports = function (url) {
                         try {
                             var stats = sloc(code, file.split(".").pop());
                             defered.resolve({
-                                name: file.replace(repo.directory, ''),
+                                name: file.replace(repo, ''),
                                 stats: stats
                             });
                         } catch (e) {

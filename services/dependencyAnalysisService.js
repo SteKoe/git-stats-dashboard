@@ -17,7 +17,7 @@ module.exports = function (url) {
     function obtainDependencies(repo) {
         var defered = Promise.defer();
 
-        var dependencyObject = madge(repo.directory);
+        var dependencyObject = madge(repo);
         defered.resolve(extractChortData(dependencyObject.tree));
 
         return defered.promise;

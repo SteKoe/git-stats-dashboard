@@ -14,14 +14,13 @@ module.exports = function (url) {
         var options = options || {};
         var defered = Promise.defer();
 
-        repo.exec('log', ['--pretty=format:"%an"'], function (err, out) {
+        require('simple-git')(repo).log(function(err, log) {
             var authors = {};
-            out.split('\n')
-                .forEach(function (author) {
-                    if (authors[author]) {
-                        authors[author]++;
+            log.all.forEach(function (author) {
+                    if (authors[author.author_name]) {
+                        authors[author.author_name]++;
                     } else {
-                        authors[author] = 1;
+                        authors[author.author_name] = 1;
                     }
                 });
 
