@@ -18,7 +18,7 @@ var router = express.Router();
 module.exports = router;
 
 router.get('/repositories/', function (req, res) {
-       GitUtils.cloneOrPullRepository(req.query.url)
+       GitUtils.cloneOrPullRepository(req.query.url, req.query.checkout)
         .then(function (repo) {
             res.send(repo);
         })
@@ -32,7 +32,7 @@ router.get('/committer/commits', function (req, res) {
         .then(function (authors) {
             res.send(authors);
         })
-        .catch(function (err) {
+        .catch(function () {
             res.sendStatus(500);
         });
 });
@@ -42,7 +42,7 @@ router.get('/file/lines', function (req, res) {
         .then(function (fileStats) {
             res.send(fileStats);
         })
-        .catch(function (err) {
+        .catch(function () {
             res.sendStatus(500);
         });
 });

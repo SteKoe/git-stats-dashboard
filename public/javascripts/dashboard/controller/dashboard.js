@@ -30,15 +30,15 @@ angular.module('de.devjs.dashboard.git.dashboard')
         $scope.retrieveExistingRepos();
 
         $scope.runStats = function () {
+            console.log("anlyse starting...", $scope.url, headers);
+            $scope.loading = true;
+
             if ($scope.username && $scope.password) {
                 headers.common = {};
                 headers.common['Authorization'] = 'Basic ' + $base64.encode($scope.username + ':' + $scope.password);
             }
 
-            $scope.loading = true;
-            console.log("anlyse starting...", $scope.url, headers);
-
-            $http.get('/git/repositories?url=' + $scope.url, headers)
+            $http.get('/git/repositories?url=' + $scope.url + '&checkout=' + $scope.checkout, headers)
                 .then(function () {
                     var ps = analyse();
                     $q.all(ps)

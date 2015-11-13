@@ -6,14 +6,13 @@
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 var Promise = require('bluebird');
-var sha1 = require('sha1');
 
-module.exports = (function () {
+module.exports = (() => {
     return {
         cloneOrPullRepository: cloneOrPullRepository
     };
 
-    function cloneOrPullRepository(url) {
+    function cloneOrPullRepository(url, checkout) {
         var defered;
 
         if (!url) {
@@ -21,7 +20,7 @@ module.exports = (function () {
             defered.reject({status: 400});
             return defered.promise;
         } else {
-            return _cloneOrPullRepository(url);
+            return _cloneOrPullRepository(url, checkout);
         }
     }
 
@@ -29,7 +28,7 @@ module.exports = (function () {
      * @param url The URL of the repository to be cloned.
      * @returns {*} Git.Repository object
      */
-    function _cloneOrPullRepository(url) {
+    function _cloneOrPullRepository(url, checkout) {
 
         var path = url.replace(/([a-zA-Z]*)\:\/\//, "");
         var targetPath = './tmp/' + path;
@@ -42,15 +41,16 @@ module.exports = (function () {
         if (!fs.existsSync(targetPath)) {
             var git = require('simple-git')('./');
 
-                git.clone(url, targetPath, function () {
-                    console.log('clone done.');
-                    defered.resolve(targetPath);
-                });
-            //
-            //require('simple-git')(targetPath)
-            //    .checkout('development', function (err, update) {
-            //    });
+            git.clone(url, targetPath, function () {
+                console.log('clone done.');
+                defered.resolve(targetPath);
+            });
 
+            if (checkout) {
+                require('simple-git')(targetPath)
+                    .checkout(checkout, function (err, update) {
+                    });
+            }
         } else {
             require('simple-git')(targetPath)
                 .pull(function (err, update) {
